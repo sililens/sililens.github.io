@@ -63,7 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","modal-camera-modal-camera-module":"modal-camera-modal-camera-module","modal-media-modal-media-module":"modal-media-modal-media-module","page-upload-page-upload-module":"page-upload-page-upload-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"common":"common","home-home-module":"home-home-module","page-upload-page-upload-module":"page-upload-page-upload-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

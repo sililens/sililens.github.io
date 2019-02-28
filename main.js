@@ -842,12 +842,10 @@ var map = {
 		"home-home-module"
 	],
 	"./modal-camera/modal-camera.module": [
-		"./src/app/modal-camera/modal-camera.module.ts",
-		"modal-camera-modal-camera-module"
+		"./src/app/modal-camera/modal-camera.module.ts"
 	],
 	"./modal-media/modal-media.module": [
-		"./src/app/modal-media/modal-media.module.ts",
-		"modal-media-modal-media-module"
+		"./src/app/modal-media/modal-media.module.ts"
 	],
 	"./page-upload/page-upload.module": [
 		"./src/app/page-upload/page-upload.module.ts",
@@ -863,7 +861,7 @@ function webpackAsyncContext(req) {
 			throw e;
 		});
 	}
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		var id = ids[0];
 		return __webpack_require__(id);
 	});
@@ -995,12 +993,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
-/* harmony import */ var ngx_image_cropper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-image-cropper */ "./node_modules/ngx-image-cropper/fesm5/ngx-image-cropper.js");
-/* harmony import */ var _modal_camera_modal_camera_page__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modal-camera/modal-camera.page */ "./src/app/modal-camera/modal-camera.page.ts");
-/* harmony import */ var _modal_media_modal_media_page__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modal-media/modal-media.page */ "./src/app/modal-media/modal-media.page.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _modal_camera_modal_camera_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modal-camera/modal-camera.module */ "./src/app/modal-camera/modal-camera.module.ts");
+/* harmony import */ var _modal_media_modal_media_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modal-media/modal-media.module */ "./src/app/modal-media/modal-media.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 
 
 
@@ -1010,8 +1006,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
+// import {WebcamModule} from 'ngx-webcam';
+// import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -1021,9 +1017,15 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _modal_camera_modal_camera_page__WEBPACK_IMPORTED_MODULE_11__["ModalCameraPage"], _modal_media_modal_media_page__WEBPACK_IMPORTED_MODULE_12__["ModalMediaPage"]],
-            entryComponents: [_modal_camera_modal_camera_page__WEBPACK_IMPORTED_MODULE_11__["ModalCameraPage"], _modal_media_modal_media_page__WEBPACK_IMPORTED_MODULE_12__["ModalMediaPage"]],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], ngx_webcam__WEBPACK_IMPORTED_MODULE_9__["WebcamModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"], _angular_http__WEBPACK_IMPORTED_MODULE_14__["HttpModule"], ngx_image_cropper__WEBPACK_IMPORTED_MODULE_10__["ImageCropperModule"]],
+            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
+            entryComponents: [],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                // WebcamModule,
+                // ImageCropperModule,
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
+                _angular_http__WEBPACK_IMPORTED_MODULE_12__["HttpModule"],
+                _modal_camera_modal_camera_module__WEBPACK_IMPORTED_MODULE_9__["ModalCameraPageModule"], _modal_media_modal_media_module__WEBPACK_IMPORTED_MODULE_10__["ModalMediaPageModule"]
+            ],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
@@ -1039,6 +1041,60 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modal-camera/modal-camera.module.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/modal-camera/modal-camera.module.ts ***!
+  \*****************************************************/
+/*! exports provided: ModalCameraPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalCameraPageModule", function() { return ModalCameraPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _modal_camera_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal-camera.page */ "./src/app/modal-camera/modal-camera.page.ts");
+/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
+
+
+
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _modal_camera_page__WEBPACK_IMPORTED_MODULE_6__["ModalCameraPage"]
+    }
+];
+var ModalCameraPageModule = /** @class */ (function () {
+    function ModalCameraPageModule() {
+    }
+    ModalCameraPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+                ngx_webcam__WEBPACK_IMPORTED_MODULE_7__["WebcamModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
+            ],
+            declarations: [_modal_camera_page__WEBPACK_IMPORTED_MODULE_6__["ModalCameraPage"]]
+        })
+    ], ModalCameraPageModule);
+    return ModalCameraPageModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modal-camera/modal-camera.page.html":
 /*!*****************************************************!*\
   !*** ./src/app/modal-camera/modal-camera.page.html ***!
@@ -1046,7 +1102,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n    <div text-center>\n        <webcam [height]=\"360\" [width]=\"360\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <ion-row padding *ngIf=\"isSubmit\">\n            <ion-spinner style=\"margin: 16px auto;\" name=\"bubbles\"></ion-spinner>\n        </ion-row>\n        <ion-row text-center>\n            <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n                <img src=\"assets/photo_camera_black.png\" width=\"30\">\n            </ion-button>\n            <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button>\n        </ion-row>\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </div>\n    \n    \n    <!-- <div class=\"snapshot\" *ngIf=\"webcamImage\">\n        <h2>Nice one!</h2>\n        <img height=\"250\" width=\"300\" [src]=\"webcamImage.imageAsDataUrl\"/>\n    </div> -->\n</ion-content>\n"
+module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n    <div text-center>\n        <webcam [height]=\"230\" [width]=\"326\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <ion-row padding *ngIf=\"isSubmit\">\n            <ion-spinner style=\"margin: 16px auto;\" name=\"bubbles\"></ion-spinner>\n        </ion-row>\n        <ion-row text-center>\n            <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n                <img src=\"assets/photo_camera_black.png\" width=\"30\">\n            </ion-button>\n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        </ion-row>\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </div>\n    \n    \n    <!-- <div class=\"snapshot\" *ngIf=\"webcamImage\">\n        <h2>Nice one!</h2>\n        <img height=\"250\" width=\"300\" [src]=\"webcamImage.imageAsDataUrl\"/>\n    </div> -->\n</ion-content>\n"
 
 /***/ }),
 
@@ -1057,7 +1113,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Use Camera</ion-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "video {\n  -webkit-transform: rotate(90deg);\n  transform: rotate(90deg); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kYWwtY2FtZXJhL0U6XFxzaWxpY29uc3RhY2tcXGxlbnNcXHNpbGljb25fbGVuc19pb25pYy9zcmNcXGFwcFxcbW9kYWwtY2FtZXJhXFxtb2RhbC1jYW1lcmEucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksZ0NBQWdDO0VBR2hDLHdCQUF3QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvbW9kYWwtY2FtZXJhL21vZGFsLWNhbWVyYS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ2aWRlbyB7XHJcbiAgICAtbW96LXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoOTBkZWcpO1xyXG4gICAgLW8tdHJhbnNmb3JtOiByb3RhdGUoOTBkZWcpO1xyXG4gICAgLW1zLXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxuICAgIHRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxufSJdfQ== */"
+module.exports = ":host ::ng-deep .webcam-wrapper video {\n  -webkit-transform: rotate(90deg) !important;\n  transform: rotate(90deg) !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kYWwtY2FtZXJhL0U6XFxzaWxpY29uc3RhY2tcXGxlbnNcXHNpbGljb25fbGVuc19pb25pYy9zcmNcXGFwcFxcbW9kYWwtY2FtZXJhXFxtb2RhbC1jYW1lcmEucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBR1EsMkNBQTBDO0VBRzFDLG1DQUFrQyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvbW9kYWwtY2FtZXJhL21vZGFsLWNhbWVyYS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCA6Om5nLWRlZXAgLndlYmNhbS13cmFwcGVyIHtcclxuICAgIHZpZGVvIHtcclxuICAgICAgICAtbW96LXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKSFpbXBvcnRhbnQ7XHJcbiAgICAgICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSg5MGRlZykhaW1wb3J0YW50O1xyXG4gICAgICAgIC1vLXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKSFpbXBvcnRhbnQ7XHJcbiAgICAgICAgLW1zLXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKSFpbXBvcnRhbnQ7XHJcbiAgICAgICAgdHJhbnNmb3JtOiByb3RhdGUoOTBkZWcpIWltcG9ydGFudDtcclxuICAgIH1cclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1211,6 +1267,60 @@ var ModalCameraPage = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modal-media/modal-media.module.ts":
+/*!***************************************************!*\
+  !*** ./src/app/modal-media/modal-media.module.ts ***!
+  \***************************************************/
+/*! exports provided: ModalMediaPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalMediaPageModule", function() { return ModalMediaPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _modal_media_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal-media.page */ "./src/app/modal-media/modal-media.page.ts");
+/* harmony import */ var ngx_image_cropper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-image-cropper */ "./node_modules/ngx-image-cropper/fesm5/ngx-image-cropper.js");
+
+
+
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _modal_media_page__WEBPACK_IMPORTED_MODULE_6__["ModalMediaPage"]
+    }
+];
+var ModalMediaPageModule = /** @class */ (function () {
+    function ModalMediaPageModule() {
+    }
+    ModalMediaPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+                ngx_image_cropper__WEBPACK_IMPORTED_MODULE_7__["ImageCropperModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
+            ],
+            declarations: [_modal_media_page__WEBPACK_IMPORTED_MODULE_6__["ModalMediaPage"]]
+        })
+    ], ModalMediaPageModule);
+    return ModalMediaPageModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modal-media/modal-media.page.html":
 /*!***************************************************!*\
   !*** ./src/app/modal-media/modal-media.page.html ***!
@@ -1218,7 +1328,7 @@ var ModalCameraPage = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Upload Photo</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"closeModalMedia()\">Close</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-row>\n    <div class=\"upload-btn-wrapper\" style=\"width: 100%;\" text-center>\n      <button class=\"btn\">Upload a picture</button>\n      <input type=\"file\" name=\"myfile\" (change)=\"fileChangeEvent($event)\" />\n    </div>\n    \n    <image-cropper [imageChangedEvent]=\"imageChangedEvent\" [maintainAspectRatio]=\"true\" [aspectRatio]=\"4 / 3\" format=\"png\" (imageCropped)=\"imageCropped($event)\" (imageLoaded)=\"imageLoaded()\"\n      (loadImageFailed)=\"loadImageFailed()\"></image-cropper>\n\n    <ion-spinner *ngIf=\"isSubmit\" style=\"margin: 16px auto;\" name=\"bubbles\"></ion-spinner>\n    <ion-button color=\"secondary\" block *ngIf=\"croppedImage != ''\" horizontal=\"center\" class=\"actionBtn\" (click)=\"submitCrop();\">Crop</ion-button>\n  </ion-row>\n  <!-- <img [src]=\"croppedImage\" /> -->\n  \n\n</ion-content>"
+module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"secondary\" block *ngIf=\"croppedImage != ''\" horizontal=\"center\" class=\"actionBtn\" (click)=\"submitCrop();\">Crop</ion-button>\n      <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Upload Photo</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"closeModalMedia()\">Close</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-row>\n    <div class=\"upload-btn-wrapper\" style=\"width: 100%;\" text-center>\n      <button class=\"btn\">Upload a picture</button>\n      <input type=\"file\" name=\"myfile\" (change)=\"fileChangeEvent($event)\" />\n    </div>\n    \n    <image-cropper [imageChangedEvent]=\"imageChangedEvent\" [maintainAspectRatio]=\"true\" [aspectRatio]=\"4 / 3\" format=\"png\" (imageCropped)=\"imageCropped($event)\" (imageLoaded)=\"imageLoaded()\"\n      (loadImageFailed)=\"loadImageFailed()\"></image-cropper>\n\n  </ion-row>\n  <!-- <img [src]=\"croppedImage\" /> -->\n  \n\n</ion-content>"
 
 /***/ }),
 
