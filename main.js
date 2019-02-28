@@ -1057,7 +1057,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Use Camera</ion-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21vZGFsLWNhbWVyYS9tb2RhbC1jYW1lcmEucGFnZS5zY3NzIn0= */"
+module.exports = "video {\n  -webkit-transform: rotate(90deg);\n  transform: rotate(90deg); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kYWwtY2FtZXJhL0U6XFxzaWxpY29uc3RhY2tcXGxlbnNcXHNpbGljb25fbGVuc19pb25pYy9zcmNcXGFwcFxcbW9kYWwtY2FtZXJhXFxtb2RhbC1jYW1lcmEucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksZ0NBQWdDO0VBR2hDLHdCQUF3QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvbW9kYWwtY2FtZXJhL21vZGFsLWNhbWVyYS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ2aWRlbyB7XHJcbiAgICAtbW96LXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoOTBkZWcpO1xyXG4gICAgLW8tdHJhbnNmb3JtOiByb3RhdGUoOTBkZWcpO1xyXG4gICAgLW1zLXRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxuICAgIHRyYW5zZm9ybTogcm90YXRlKDkwZGVnKTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1363,9 +1363,9 @@ var ApiService = /** @class */ (function () {
     function ApiService(http, tHttp) {
         this.http = http;
         this.tHttp = tHttp;
-        this.domain = "http://siliconstackocr-dev.us-east-1.elasticbeanstalk.com";
+        //domain = "http://siliconstackocr-dev.us-east-1.elasticbeanstalk.com";
+        this.domain = "https://siliconstackocr.azurewebsites.net";
     }
-    // domain = "https://siliconstackocr.azurewebsites.net";
     ApiService.prototype.scanDriverLicences = function (photo) {
         var _this = this;
         var promise = new Promise(function (resolve, reject) {
