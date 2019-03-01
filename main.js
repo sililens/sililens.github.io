@@ -1059,6 +1059,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _modal_camera_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal-camera.page */ "./src/app/modal-camera/modal-camera.page.ts");
 /* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
+/* harmony import */ var ngx_image_cropper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-image-cropper */ "./node_modules/ngx-image-cropper/fesm5/ngx-image-cropper.js");
+
 
 
 
@@ -1083,6 +1085,7 @@ var ModalCameraPageModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
                 ngx_webcam__WEBPACK_IMPORTED_MODULE_7__["WebcamModule"],
+                ngx_image_cropper__WEBPACK_IMPORTED_MODULE_8__["ImageCropperModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
             declarations: [_modal_camera_page__WEBPACK_IMPORTED_MODULE_6__["ModalCameraPage"]]
@@ -1102,7 +1105,7 @@ var ModalCameraPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n        <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n    <div text-center>\n        <webcam [height]=\"230\" [width]=\"320\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <!-- <ion-row text-center style=\"margin: 16px auto;\"> -->\n            \n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        <!-- </ion-row> -->\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </div>\n    \n    \n    <!-- <div class=\"snapshot\" *ngIf=\"webcamImage\">\n        <h2>Nice one!</h2>\n        <img height=\"250\" width=\"300\" [src]=\"webcamImage.imageAsDataUrl\"/>\n    </div> -->\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar text-center>\n        <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n            <img src=\"assets/photo_camera_black.png\" width=\"30\">\n        </ion-button>\n    </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n        <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n    <div text-center>\n        <webcam [height]=\"230\" [width]=\"320\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <image-cropper\n            [maintainAspectRatio]=\"true\"\n            [aspectRatio]=\"4 / 3\"\n            [resizeToWidth]=\"128\"\n            format=\"png\"\n            cropper=\"{x1: 0, y1: 0, x2: 320, y2: 230 }\"\n            [outputType]=\"base64\"\n            [autoCrop]=\"true\"\n            #imageCropper\n        ></image-cropper>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <!-- <ion-row text-center style=\"margin: 16px auto;\"> -->\n            \n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        <!-- </ion-row> -->\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </div>\n    \n    \n    <!-- <div class=\"snapshot\" *ngIf=\"webcamImage\">\n        <h2>Nice one!</h2>\n        <img height=\"230\" width=\"320\" [src]=\"webcamImage.imageAsDataUrl\"/>\n    </div> -->\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar text-center>\n        <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n            <img src=\"assets/photo_camera_black.png\" width=\"30\">\n        </ion-button>\n    </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -1113,7 +1116,7 @@ module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"i
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host ::ng-deep .webcam-wrapper video {\n  width: 320px !important;\n  -o-object-fit: fill !important;\n     object-fit: fill !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kYWwtY2FtZXJhL0U6XFxzaWxpY29uc3RhY2tcXGxlbnNcXHNpbGljb25fbGVuc19pb25pYy9zcmNcXGFwcFxcbW9kYWwtY2FtZXJhXFxtb2RhbC1jYW1lcmEucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRVEsdUJBQXNCO0VBRXRCLDhCQUEwQjtLQUExQiwyQkFBMEIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21vZGFsLWNhbWVyYS9tb2RhbC1jYW1lcmEucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3QgOjpuZy1kZWVwIC53ZWJjYW0td3JhcHBlciB7XHJcbiAgICB2aWRlbyB7XHJcbiAgICAgICAgd2lkdGg6IDMyMHB4IWltcG9ydGFudDtcclxuICAgICAgICAvLyBoZWlnaHQ6IDIyMHB4IWltcG9ydGFudDtcclxuICAgICAgICBvYmplY3QtZml0OiBmaWxsIWltcG9ydGFudDtcclxuICAgIH1cclxufSJdfQ== */"
+module.exports = ":host ::ng-deep .webcam-wrapper video {\n  width: 320px !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbW9kYWwtY2FtZXJhL0U6XFxzaWxpY29uc3RhY2tcXGxlbnNcXHNpbGljb25fbGVuc19pb25pYy9zcmNcXGFwcFxcbW9kYWwtY2FtZXJhXFxtb2RhbC1jYW1lcmEucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRVEsdUJBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9tb2RhbC1jYW1lcmEvbW9kYWwtY2FtZXJhLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IDo6bmctZGVlcCAud2ViY2FtLXdyYXBwZXIge1xyXG4gICAgdmlkZW8ge1xyXG4gICAgICAgIHdpZHRoOiAzMjBweCFpbXBvcnRhbnQ7XHJcbiAgICAgICAgLy8gaGVpZ2h0OiAyMjBweCFpbXBvcnRhbnQ7XHJcbiAgICAgICAgLy8gb2JqZWN0LWZpdDogZmlsbCFpbXBvcnRhbnQ7XHJcbiAgICB9XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1133,6 +1136,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _services_api_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/api/api.service */ "./src/app/services/api/api.service.ts");
+/* harmony import */ var ngx_image_cropper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-image-cropper */ "./node_modules/ngx-image-cropper/fesm5/ngx-image-cropper.js");
+
 
 
 
@@ -1216,7 +1221,7 @@ var ModalCameraPage = /** @class */ (function () {
         var _this = this;
         this.isSubmit = true;
         if (this.photoType == 'DriverLicence') {
-            this.apiService.scanDriverLicences(this.webcamImage.imageAsBase64).then(function (data) {
+            this.apiService.scanDriverLicences(this.webcamImage.imageAsDataUrl).then(function (data) {
                 _this.modalCtrl.dismiss({
                     'photo': _this.webcamImage.imageAsDataUrl,
                     'response': data
@@ -1252,6 +1257,10 @@ var ModalCameraPage = /** @class */ (function () {
             });
         }
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(ngx_image_cropper__WEBPACK_IMPORTED_MODULE_6__["ImageCropperComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", ngx_image_cropper__WEBPACK_IMPORTED_MODULE_6__["ImageCropperComponent"])
+    ], ModalCameraPage.prototype, "imageCropper", void 0);
     ModalCameraPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-modal-camera',
