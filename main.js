@@ -1176,7 +1176,7 @@ var ModalCameraPage = /** @class */ (function () {
     };
     ModalCameraPage.prototype.ionViewDidEnter = function () {
         console.log('AAAAAAAAAAAAAAAAAAAAA');
-        document.querySelector('#ion-content').shadowRoot.querySelector('.inner-scroll').setAttribute('style', 'width:320px;height:230px;');
+        document.querySelector('#ion-content').shadowRoot.querySelector('.inner-scroll').setAttribute('style', 'width:320px;height:230px;margin: 0 auto;');
     };
     ModalCameraPage.prototype.triggerSnapshot = function () {
         this.trigger.next();
@@ -1488,7 +1488,8 @@ var ApiService = /** @class */ (function () {
         this.http = http;
         this.tHttp = tHttp;
         //domain = "http://siliconstackocr-dev.us-east-1.elasticbeanstalk.com";
-        this.domain = "https://siliconstackocr.azurewebsites.net";
+        //domain = "https://siliconstackocr.azurewebsites.net";
+        this.domain = "https://ocr.siliconstack.com.au";
     }
     ApiService.prototype.scanDriverLicences = function (photo) {
         var _this = this;
