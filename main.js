@@ -1105,7 +1105,7 @@ var ModalCameraPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n        <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n    <ion-row justify-content-center align-items-center style='height: 100%'>\n        <webcam [height]=\"230\" [width]=\"320\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <!-- <ion-row text-center style=\"margin: 16px auto;\"> -->\n            \n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        <!-- </ion-row> -->\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </ion-row>\n    \n    \n    <!-- <div class=\"snapshot\" *ngIf=\"webcamImage\">\n        <h2>Nice one!</h2>\n        <img height=\"230\" width=\"320\" [src]=\"webcamImage.imageAsDataUrl\"/>\n    </div> -->\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar text-center>\n        <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n            <img src=\"assets/photo_camera_black.png\" width=\"30\">\n        </ion-button>\n    </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n        <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding #ion-content>\n    <ion-row justify-content-center align-items-center style='height: 100%'>\n        <webcam [height]=\"230\" [width]=\"320\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <!-- <ion-row text-center style=\"margin: 16px auto;\"> -->\n            \n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        <!-- </ion-row> -->\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </ion-row>\n    \n    \n    <!-- <div class=\"snapshot\" *ngIf=\"webcamImage\">\n        <h2>Nice one!</h2>\n        <img height=\"230\" width=\"320\" [src]=\"webcamImage.imageAsDataUrl\"/>\n    </div> -->\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar text-center>\n        <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n            <img src=\"assets/photo_camera_black.png\" width=\"30\">\n        </ion-button>\n    </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -1173,6 +1173,10 @@ var ModalCameraPage = /** @class */ (function () {
             .then(function (mediaDevices) {
             _this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
         });
+    };
+    ModalCameraPage.prototype.ionViewDidEnter = function () {
+        console.log('AAAAAAAAAAAAAAAAAAAAA');
+        document.querySelector('#ion-content').shadowRoot.querySelector('.inner-scroll').setAttribute('style', 'width:320px;height:230px;');
     };
     ModalCameraPage.prototype.triggerSnapshot = function () {
         this.trigger.next();
@@ -1398,7 +1402,8 @@ var ModalMediaPage = /** @class */ (function () {
         var _this = this;
         this.isSubmit = true;
         var originPhoto = this.croppedImage;
-        var cropImage = this.croppedImage.replace("data:image/png;base64,", "");
+        var comma = this.croppedImage.indexOf(',');
+        var cropImage = this.croppedImage.substr(comma + 1);
         if (this.photoType == 'DriverLicence') {
             this.apiService.scanDriverLicences(cropImage).then(function (data) {
                 // console.log(data);
@@ -1490,16 +1495,12 @@ var ApiService = /** @class */ (function () {
         var promise = new Promise(function (resolve, reject) {
             var url = _this.domain + '/DriverLicences';
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-            // headers.set('Content-Type', 'application/x-www-form-urlencoded');
-            // headers.set('Access-Control-Allow-Origin', '*');
-            // headers.set('Access-Control-Allow-Credentials','true');
-            // headers.set('Access-Control-Allow-Methods', 'POST');
-            // headers.set('Access-Control-Allow-Headers','application/json');
-            // headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-            // headers.set('Accept', 'application/json');
             var body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
-            body = body.set('ImageData', photo);
-            _this.http.post(url, body, {
+            //body = body.set('ImageData', 'abc+123+456');
+            //console.log(body.get('ImageData'));
+            _this.http.post(url, {
+                'ImageData': photo
+            }, {
                 headers: headers
             }).subscribe(function (res) {
                 resolve(res);
@@ -1515,8 +1516,9 @@ var ApiService = /** @class */ (function () {
             var url = _this.domain + '/Regos';
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
             var body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
-            body = body.set('ImageData', photo);
-            _this.http.post(url, body, {
+            _this.http.post(url, {
+                'ImageData': photo
+            }, {
                 headers: headers
             }).subscribe(function (res) {
                 resolve(res);
@@ -1532,8 +1534,9 @@ var ApiService = /** @class */ (function () {
             var url = _this.domain + '/Vins';
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
             var body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
-            body = body.set('ImageData', photo);
-            _this.http.post(url, body, {
+            _this.http.post(url, {
+                'ImageData': photo
+            }, {
                 headers: headers
             }).subscribe(function (res) {
                 resolve(res);
@@ -1549,8 +1552,9 @@ var ApiService = /** @class */ (function () {
             var url = _this.domain + '/GlassGuide/CarDetail';
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
             var body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
-            body = body.set('ImageData', photo);
-            _this.http.post(url, body, {
+            _this.http.post(url, {
+                'ImageData': photo
+            }, {
                 headers: headers
             }).subscribe(function (res) {
                 resolve(res);
