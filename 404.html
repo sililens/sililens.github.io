@@ -2,41 +2,45 @@
 
 <head>
 
+    <script>
+        window.location.replace("https://sililens.github.io");
+    </script>
 </head>
 
 <body>
     404
     <script>
-        (function () {
+        // (function () {
 
-            document.body.className = 'redirecting';
+        //     document.body.className = 'redirecting';
 
-            var slug = location.pathname.slice(1);
+        //     var slug = location.pathname.slice(1);
 
-            xhr({
-                src: 'secrets.json',
-                onsuccess: function () {
-                    var slugs = JSON.parse(this.responseText);
+        //     xhr({
+        //         src: 'secrets.json',
+        //         onsuccess: function () {
+        //             var slugs = JSON.parse(this.responseText);
 
-                    var hash = slugs[slug];
+        //             var hash = slugs[slug];
 
-                    if (hash) {
-                        // Redirect
-                        var url = hash.indexOf('https') == 0 ? hash : 'https://sililens.github.io' +
-                            hash;
-                        $('section.redirecting > p').innerHTML = 'Redirecting to <a href="' + url +
-                            '">' + url + '</a>…';
-                        location.href = url;
-                    } else {
-                        document.body.className = 'error not-found';
-                    }
-                },
-                onerror: function () {
-                    document.body.className = 'error json';
-                }
-            });
+        //             if (hash) {
+        //                 // Redirect
+        //                 var url = hash.indexOf('https') == 0 ? hash : 'https://sililens.github.io' +
+        //                     hash;
+        //                 $('section.redirecting > p').innerHTML = 'Redirecting to <a href="' + url +
+        //                     '">' + url + '</a>…';
+        //                 location.href = url;
+        //             } else {
+        //                 document.body.className = 'error not-found';
+        //             }
+        //         },
+        //         onerror: function () {
+        //             document.body.className = 'error json';
+        //         }
+        //     });
 
-        })();
+        // })();
+
     </script>
 </body>
 
