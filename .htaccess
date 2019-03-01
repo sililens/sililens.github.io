@@ -5,3 +5,4 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^(.*) index.html [NC,L]
 Redirect /home https://sililens.github.io
+ErrorDocument 404 https://sililens.github.io
