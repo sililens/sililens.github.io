@@ -1105,7 +1105,7 @@ var ModalCameraPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n        <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding id=\"ion-content\">\n    <ion-row justify-content-center align-items-center style='height: 100%'>\n        <webcam [height]=\"230\" [width]=\"320\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <!-- <ion-row text-center style=\"margin: 16px auto;\"> -->\n            \n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        <!-- </ion-row> -->\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </ion-row>\n    <image-cropper\n        [maintainAspectRatio]=\"true\"\n        [aspectRatio]=\"4 / 3\"\n        format=\"png\"\n        [cropper]= \"{x1: 0, y1: 0, x2: 320, y2: 230}\"\n        #imageCropper \n    >\n    </image-cropper>\n    \n    \n    <!-- <div class=\"snapshot\">\n        <h2>Nice one!</h2>\n        <img [src]=\"imageCropper.imageBase64\"/>\n    </div> -->\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar text-center>\n        <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n            <img src=\"assets/photo_camera_black.png\" width=\"30\">\n        </ion-button>\n    </ion-toolbar>\n</ion-footer>"
+module.exports = "<ion-header mode=\"ios\" translucent>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n        <ion-spinner *ngIf=\"isSubmit\" name=\"bubbles\"></ion-spinner>\n    </ion-buttons>\n    <ion-title>Use Camera</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-button (click)=\"closeModalCamera()\">Close</ion-button>\n      </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding id=\"ion-content\">\n    <ion-row justify-content-center align-items-center style='height: 100%'>\n        <webcam [height]=\"230\" [width]=\"320\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\" *ngIf=\"showWebcam\"\n        [allowCameraSwitch]=\"allowCameraSwitch\" [switchCamera]=\"nextWebcamObservable\"\n        [videoOptions]=\"videoOptions\"\n        [imageQuality]=\"1\"\n        (cameraSwitched)=\"cameraWasSwitched($event)\"\n        (initError)=\"handleInitError($event)\">\n        </webcam>\n        <!-- <ion-fab-button color=\"secondary\" (click)=\"triggerSnapshot()\">\n            <img src=\"assets/photo_camera_black.png\">\n        </ion-fab-button>\n        <ion-fab-button color=\"secondary\" (click)=\"toggleWebcam()\">\n            <img src=\"assets/switch_camera_black.png\">\n        </ion-fab-button> -->\n\n        <!-- <ion-row text-center style=\"margin: 16px auto;\"> -->\n            \n            <!-- <ion-button fill=\"outline\" color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"toggleWebcam();\">\n                <img src=\"assets/switch_camera_black.png\" width=\"30\">\n            </ion-button> -->\n        <!-- </ion-row> -->\n\n        <!-- <ion-button outline color=\"warning\" class=\"actionBtn\" (click)=\"triggerSnapshot();\">Take A Snapshot</ion-button>\n        <ion-button outline color=\"light\" class=\"actionBtn\" (click)=\"toggleWebcam();\">Switch Camera</ion-button> -->\n    </ion-row>\n    <image-cropper\n        [maintainAspectRatio]=\"true\"\n        [aspectRatio]=\"4 / 3\"\n        format=\"png\"\n        [cropper]= \"{x1: 0, y1: 0, x2: 320, y2: 230}\"\n        (imageCropped)=\"imageCropped($event)\"\n        #imageCropper\n        style=\"visibility: hidden;opacity: 0;\"\n    >\n    </image-cropper>\n    \n    \n    <!-- <div class=\"snapshot\">\n        <h2>Nice one!</h2>\n        <img [src]=\"imageCropper.imageBase64\"/>\n    </div> -->\n</ion-content>\n\n<ion-footer>\n    <ion-toolbar text-center>\n        <ion-button outline color=\"warning\" class=\"actionBtn\" style=\"margin: auto auto;\" (click)=\"triggerSnapshot();\">\n            <img src=\"assets/photo_camera_black.png\" width=\"30\">\n        </ion-button>\n    </ion-toolbar>\n</ion-footer>"
 
 /***/ }),
 
@@ -1165,6 +1165,7 @@ var ModalCameraPage = /** @class */ (function () {
         this.nextWebcam = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
         this.photoType = '';
         this.isSubmit = false;
+        this.croppedImage = '';
     }
     ModalCameraPage.prototype.ngOnInit = function () {
         // console.log(this.photoType);
@@ -1221,47 +1222,54 @@ var ModalCameraPage = /** @class */ (function () {
             'photo': ''
         });
     };
-    ModalCameraPage.prototype.submitPhoto = function () {
+    ModalCameraPage.prototype.imageCropped = function (event) {
         var _this = this;
+        this.croppedImage = event.base64;
+        if (this.croppedImage != 'data:,' && this.croppedImage != null) {
+            var comma = this.croppedImage.indexOf(',');
+            var cropImage = this.croppedImage.substr(comma + 1);
+            if (this.photoType == 'DriverLicence') {
+                this.apiService.scanDriverLicences(cropImage).then(function (data) {
+                    _this.modalCtrl.dismiss({
+                        'photo': _this.croppedImage,
+                        'response': data
+                    });
+                    _this.isSubmit = false;
+                });
+            }
+            else if (this.photoType == 'CarDetail') {
+                this.apiService.scanCar(this.webcamImage.imageAsBase64).then(function (data) {
+                    _this.modalCtrl.dismiss({
+                        'photo': _this.webcamImage.imageAsDataUrl,
+                        'response': data
+                    });
+                    _this.isSubmit = false;
+                });
+            }
+            else if (this.photoType == 'Rego') {
+                this.apiService.scanRego(this.webcamImage.imageAsBase64).then(function (data) {
+                    _this.modalCtrl.dismiss({
+                        'photo': _this.webcamImage.imageAsDataUrl,
+                        'response': data
+                    });
+                    _this.isSubmit = false;
+                });
+            }
+            else if (this.photoType == 'VIN') {
+                this.apiService.scanVin(this.webcamImage.imageAsBase64).then(function (data) {
+                    _this.modalCtrl.dismiss({
+                        'photo': _this.webcamImage.imageAsDataUrl,
+                        'response': data
+                    });
+                    _this.isSubmit = false;
+                });
+            }
+        }
+    };
+    ModalCameraPage.prototype.submitPhoto = function () {
         this.isSubmit = true;
         this.imageCropper.imageBase64 = this.webcamImage.imageAsDataUrl;
-        this.imageCropper.crop();
-        if (this.photoType == 'DriverLicence') {
-            this.apiService.scanDriverLicences(this.imageCropper.imageBase64).then(function (data) {
-                _this.modalCtrl.dismiss({
-                    'photo': _this.imageCropper.imageBase64,
-                    'response': data
-                });
-                _this.isSubmit = false;
-            });
-        }
-        else if (this.photoType == 'CarDetail') {
-            this.apiService.scanCar(this.webcamImage.imageAsBase64).then(function (data) {
-                _this.modalCtrl.dismiss({
-                    'photo': _this.webcamImage.imageAsDataUrl,
-                    'response': data
-                });
-                _this.isSubmit = false;
-            });
-        }
-        else if (this.photoType == 'Rego') {
-            this.apiService.scanRego(this.webcamImage.imageAsBase64).then(function (data) {
-                _this.modalCtrl.dismiss({
-                    'photo': _this.webcamImage.imageAsDataUrl,
-                    'response': data
-                });
-                _this.isSubmit = false;
-            });
-        }
-        else if (this.photoType == 'VIN') {
-            this.apiService.scanVin(this.webcamImage.imageAsBase64).then(function (data) {
-                _this.modalCtrl.dismiss({
-                    'photo': _this.webcamImage.imageAsDataUrl,
-                    'response': data
-                });
-                _this.isSubmit = false;
-            });
-        }
+        this.imageCropper.crop('base64');
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(ngx_image_cropper__WEBPACK_IMPORTED_MODULE_6__["ImageCropperComponent"]),
