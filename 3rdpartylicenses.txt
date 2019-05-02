@@ -25,6 +25,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+@angular/common
+MIT
+
 rxjs
 Apache-2.0
                                Apache License
@@ -290,9 +293,6 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 END OF TERMS AND CONDITIONS
 
 
-@angular/common
-MIT
-
 @angular/platform-browser
 MIT
 
@@ -301,6 +301,9 @@ MIT
 
 @ionic/angular
 MIT
+
+guid-typescript
+ISC
 
 @angular/http
 MIT
